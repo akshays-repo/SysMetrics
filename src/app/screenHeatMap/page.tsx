@@ -8,13 +8,10 @@ import HighchartsExporting from 'highcharts/modules/exporting'
 
 if (typeof Highcharts === 'object') {
     HighchartsExporting(Highcharts)
-}
-
-if (typeof Highcharts === 'object') {
-  // Initialize the heatmap module
+      // Initialize the heatmap module
   heatmap(Highcharts);
-
 }
+
 
 const Heatmap = () => {
   const [heatmapData, setHeatmapData] = useState([]);
