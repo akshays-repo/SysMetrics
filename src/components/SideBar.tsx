@@ -5,7 +5,6 @@ import classNames from "classnames";
 type NavItem = {
     label: string;
     href: string;
-    icon: React.ReactNode;
 };
 
 const defaultNavItems: NavItem[] = [
@@ -20,9 +19,6 @@ const defaultNavItems: NavItem[] = [
     {
         label:"Mouse click count",
         href:"/mouseClickCount"
-    },{
-        label:"Screen Heat Map",
-        href:"/screenHeatMap"
     }
 ];
 
@@ -57,7 +53,7 @@ const Sidebar = () => {
                                         "text-black hover:text-white": true
                                     })}
                                 >
-                                    {item.icon} {item.label}
+                                   {item.label}
                                 </li>
                             </Link>
                         );
