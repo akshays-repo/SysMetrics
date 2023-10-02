@@ -26,41 +26,35 @@ const HeapMemory = () => {
         ],
         time: {
             timezoneOffset: new Date().getTimezoneOffset(), // Set timezoneOffset to your local timezone
-          },
+        },
     });
 
     useEffect(() => {
         const fetchData = () => {
-            const memoryInfo = window.performance.memory;
+            if ('memory' in window.performance) {
+                const memoryInfo:any = window.performance.memory;
+                // Update the chart series with the new data.
+                setChartOptions((prevOptions: any) => {
+                    const maxDataLength = 50; // Maximum data length you want to maintain
+                    // Copy the previous options
+                    const newOptions = { ...prevOptions };
+                    // Update series[0] (totalJSHeapSize)
+                    const totalJSHeapSizeData = [...prevOptions.series[0].data, [Date.now(), formatMemorySize(memoryInfo.totalJSHeapSize)]];
+                    if (totalJSHeapSizeData.length > maxDataLength) {
+                        totalJSHeapSizeData.shift(); // Remove the oldest data point
+                    }
+                    newOptions.series[0].data = totalJSHeapSizeData;
+                    // Update series[1] (usedJSHeapSize)
+                    const usedJSHeapSizeData = [...prevOptions.series[1].data, [Date.now(), formatMemorySize(memoryInfo.usedJSHeapSize)]];
+                    if (usedJSHeapSizeData.length > maxDataLength) {
+                        usedJSHeapSizeData.shift(); // Remove the oldest data point
+                    }
+                    newOptions.series[1].data = usedJSHeapSizeData;
+                    // You can do a similar update for series[2] if it exists
+                    return newOptions;
+                });
+            }
 
-
-            // Update the memory data state with the new formatted data.
-
-            // Update the chart series with the new data.
-            setChartOptions((prevOptions: any) => {
-                const maxDataLength = 50; // Maximum data length you want to maintain
-
-                // Copy the previous options
-                const newOptions = { ...prevOptions };
-
-                // Update series[0] (totalJSHeapSize)
-                const totalJSHeapSizeData = [...prevOptions.series[0].data, [Date.now(), formatMemorySize(memoryInfo.totalJSHeapSize)]];
-                if (totalJSHeapSizeData.length > maxDataLength) {
-                    totalJSHeapSizeData.shift(); // Remove the oldest data point
-                }
-                newOptions.series[0].data = totalJSHeapSizeData;
-
-                // Update series[1] (usedJSHeapSize)
-                const usedJSHeapSizeData = [...prevOptions.series[1].data, [Date.now(), formatMemorySize(memoryInfo.usedJSHeapSize)]];
-                if (usedJSHeapSizeData.length > maxDataLength) {
-                    usedJSHeapSizeData.shift(); // Remove the oldest data point
-                }
-                newOptions.series[1].data = usedJSHeapSizeData;
-
-                // You can do a similar update for series[2] if it exists
-
-                return newOptions;
-            });
         };
 
         // Fetch memory info every 10 seconds.
