@@ -2,9 +2,15 @@
 import React, { useEffect, useState } from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
-import heatmap from "highcharts/modules/heatmap";
+import heatmap from "highcharts/modules/heatmap"; // Import the heatmap module
 
-heatmap(Highcharts);
+
+
+if (typeof Highcharts === 'object') {
+  // Initialize the heatmap module
+  heatmap(Highcharts);
+
+}
 
 const Heatmap = () => {
   const [heatmapData, setHeatmapData] = useState([]);
