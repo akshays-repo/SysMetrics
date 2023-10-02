@@ -4,7 +4,11 @@ import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import heatmap from "highcharts/modules/heatmap"; // Import the heatmap module
 
+import HighchartsExporting from 'highcharts/modules/exporting'
 
+if (typeof Highcharts === 'object') {
+    HighchartsExporting(Highcharts)
+}
 
 if (typeof Highcharts === 'object') {
   // Initialize the heatmap module

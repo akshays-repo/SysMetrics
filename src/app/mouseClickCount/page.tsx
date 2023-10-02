@@ -3,6 +3,15 @@ import React, { useEffect, useState } from "react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 
+import HighchartsExporting from 'highcharts/modules/exporting'
+
+if (typeof Highcharts === 'object') {
+    HighchartsExporting(Highcharts)
+
+}
+
+
+
 const MouseClickCountChart = () => {
   const [chartOptions, setChartOptions] = useState({
     chart: {

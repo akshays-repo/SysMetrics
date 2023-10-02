@@ -3,6 +3,15 @@ import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
+import HighchartsExporting from 'highcharts/modules/exporting'
+
+if (typeof Highcharts === 'object') {
+    HighchartsExporting(Highcharts)
+
+}
+
+
+
 const formatMemorySize = (bytes: number): number => {
     return (bytes / (1024 ** 2))
 };
